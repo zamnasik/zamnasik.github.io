@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohammed Nasik • Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0e16;
+      --card: rgba(255,255,255,0.06);
+      --muted: #9aa4b2;
+      --text: #e7ecf3;
+      --brand: #7c5cff;
+      --brand2:#00d4ff;
+      --accent:#14f195;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+      color:var(--text); background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(124,92,255,.25), transparent 60%),
+        radial-gradient(900px 500px at 110% 10%, rgba(0,212,255,.18), transparent 60%),
+        linear-gradient(180deg, #070a11, #0b0e16 40%, #0a0d14 100%);
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+    .btn{
+      display:inline-flex; gap:.55rem; align-items:center;
+      padding:.85rem 1.1rem; border-radius:12px;
+      background: linear-gradient(135deg,var(--brand),var(--brand2));
+      color:white; font-weight:600; border:0; cursor:pointer;
+      box-shadow: var(--shadow); transition: transform .15s ease, opacity .2s ease;
+    }
+    .btn:hover{transform: translateY(-2px)}
+    .btn.ghost{
+      background: transparent; border:1px solid rgba(255,255,255,.15);
+      color:var(--text)
+    }
+    .tag{padding:.35rem .7rem; border-radius:999px; background:rgba(255,255,255,.07); color:#d7def0; font-size:.9rem; border:1px solid rgba(255,255,255,.07)}
+    .pill-row{display:flex; flex-wrap:wrap; gap:.6rem}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(8px);
+      background: linear-gradient(180deg, rgba(7,10,17,.8), rgba(7,10,17,.35));
+      border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; align-items:center; gap:.7rem; font-weight:800; letter-spacing:.3px}
+    .brand-dot{width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 14px rgba(124,92,255,.75)}
+    nav ul{display:flex; gap:1rem; list-style:none; margin:0; padding:0}
+    nav a{
+      padding:.55rem .75rem; border-radius:10px; color:#dfe7f7; opacity:.9;
+    }
+    nav a:hover{background:rgba(255,255,255,.06); opacity:1}
+    .mobile-toggle{display:none}
+
+    /* Hero */
+    .hero{display:grid; gap:2rem; padding:64px 0 32px; align-items:center}
+    .hero-grid{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:2rem; align-items:center
+    }
+    .profile{
+      display:flex; gap:1.3rem; align-items:center; background:var(--card);
+      padding:1rem; border-radius:var(--radius); border:1px solid rgba(255,255,255,.08)
+    }
+    .profile img{width:72px; height:72px; border-radius:16px; object-fit:cover}
+    .title{
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.05; margin:.4rem 0 1rem; font-weight:800;
+      letter-spacing:.3px
+    }
+    .subtitle{color:var(--muted); font-size:1.05rem}
+    .cta-row{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.2rem}
+    .glow{
+      position:relative; isolation:isolate;
+    }
+    .glow:after{
+      content:""; position:absolute; inset:-2px; z-index:-1; border-radius:inherit;
+      background: radial-gradient(800px 200px at 0% 0%, rgba(124,92,255,.18), transparent 60%);
+      filter: blur(20px);
+    }
+
+    /* Sections */
+    section{padding:72px 0}
+    section h2{font-size:clamp(1.6rem,3.2vw,2.1rem); margin:0 0 1rem; letter-spacing:.2px}
+    .lead{color:#cdd6e7; margin:0 0 1.2rem}
+
+    /* Cards */
+    .grid{
+      display:grid; gap:1.2rem;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .span-4{grid-column: span 4}
+    .span-6{grid-column: span 6}
+    .span-12{grid-column: 1/-1}
+    @media(max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      .span-4{grid-column: 1/-1}
+      .span-6{grid-column: 1/-1}
+      .mobile-toggle{display:inline-flex}
+      nav ul{display:none}
+      nav ul.open{display:flex; position:absolute; top:64px; left:0; right:0; background:#0b0e16; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.08)}
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.09); border-radius:var(--radius);
+      overflow:hidden; box-shadow: var(--shadow); transform: translateY(0); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .card:hover{transform: translateY(-4px); border-color:rgba(124,92,255,.35)}
+    .card img{width:100%; height:210px; object-fit:cover}
+    .card-body{padding:16px 16px 18px}
+    .card-title{font-weight:700; margin:0 0 .45rem}
+    .card-desc{color:var(--muted); margin:0 0 .6rem; font-size:.98rem}
+    .card-actions{display:flex; gap:.6rem; flex-wrap:wrap}
+    .link{font-weight:600; font-size:.92rem; color:#cfe5ff; padding:.35rem .55rem; border-radius:10px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08)}
+
+    /* Skills */
+    .skill{
+      background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px;
+      padding:12px 14px;
+    }
+    .skill-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
+    .bar{width:100%; height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden}
+    .bar > span{
+      display:block; height:100%;
+      background: linear-gradient(90deg, var(--brand), var(--brand2));
+      width:0%;
+    }
+
+    /* Timeline */
+    .timeline{position:relative; padding-left:22px}
+    .timeline:before{
+      content:""; position:absolute; top:0; bottom:0; left:8px; width:2px; background:linear-gradient(180deg, rgba(124,92,255,.6), rgba(0,212,255,.4))
+    }
+    .t-item{position:relative; margin:0 0 20px; padding:12px 14px 14px; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px}
+    .t-item:before{
+      content:""; position:absolute; left:-2px; top:16px; width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2)); box-shadow:0 0 12px rgba(124,92,255,.9)
+    }
+    .t-title{font-weight:700}
+    .t-meta{color:var(--muted); font-size:.95rem; margin:.2rem 0 .5rem}
+
+    /* Certs */
+    .certs{display:grid; grid-template-columns: 1fr 1fr; gap:1rem}
+    @media(max-width:900px){.certs{grid-template-columns:1fr}}
+    .list{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:14px 16px}
+    .list h3{margin:0 0 .6rem}
+    .list ul{margin:0; padding-left:1.1rem}
+    .list li{margin:.35rem 0; color:#d7dfef}
+
+    /* Video */
+    .video-wrap{
+      border-radius:var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.1);
+      box-shadow: var(--shadow)
+    }
+    video{display:block; width:100%; height:auto; background:#000}
+
+    /* Reveal animations */
+    .reveal{opacity:0; transform: translateY(12px); transition: all .6s cubic-bezier(.2,.65,.2,1)}
+    .reveal.show{opacity:1; transform: translateY(0)}
+
+    footer{padding:60px 0 40px; color:#b7c2d6; border-top:1px solid rgba(255,255,255,.06)}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>Mohammed&nbsp;Nasik</span>
+      </div>
+      <button class="btn ghost mobile-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
+      <nav>
+        <ul id="menu">
+          <li><a href="#home">Profile</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#certs">Certifications</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="glow">
+        <div class="profile reveal">
+          <img src="assets/profile.jpg" alt="Profile photo of Mohammed Nasik">
+          <div>
+            <div class="tag">Software Engineer • IoT Developer • Visiting Lecturer</div>
+            <div class="title">Building smart systems that connect<br/>hardware, data & people.</div>
+            <p class="subtitle">Specialized in ESP32/Arduino, embedded systems, AI integration, and full-stack web with PHP/MySQL.</p>
+            <div class="cta-row">
+              <a class="btn" href="#projects">View Projects</a>
+              <a class="btn ghost" href="mailto:zamnasik@gmail.com">Contact Me</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="pill-row">
+            <span class="tag">ESP32</span><span class="tag">Arduino</span><span class="tag">Raspberry&nbsp;Pi</span>
+            <span class="tag">Python</span><span class="tag">C/C++</span><span class="tag">PHP</span><span class="tag">Java</span>
+            <span class="tag">MySQL</span><span class="tag">MATLAB</span><span class="tag">Proteus</span><span class="tag">GSM/LoRa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="video-wrap">
+          <video id="heroVideo" autoplay muted loop playsinline poster="assets/greenhouse.jpg"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2 class="reveal">About Me</h2>
+      <p class="lead reveal">
+        I’m Nasik — an engineer who loves turning real-world problems into reliable tech. From
+        <strong>IoT automation</strong> and <strong>BCI-flavoured AI experiments</strong> to clean, maintainable web apps,
+        I enjoy the full cycle: ideation → prototype → production. I also teach at Gampaha Technical College, helping students
+        build confidence through hands-on electronics and programming.
+      </p>
+      <div class="pill-row reveal">
+        <span class="tag">Colombo, Sri Lanka</span>
+        <span class="tag">Available for collaborations</span>
+        <span class="tag">Email: zamnasik@gmail.com</span>
+        <span class="tag">Phone: +94 772 452237</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="reveal">Skills</h2>
+      <p class="lead reveal">A quick snapshot of my toolbox. Bars animate when visible.</p>
+
+      <div class="grid">
+        <div class="span-6 reveal">
+          <div class="skill">
+            <div class="skill-top"><strong>Programming</strong><span class="tag">Python • Java • C/C++ • PHP • JS • R (learning)</span></div>
+            <div class="bar"><span data-level="92"></span></div>
+          </div>
+        </div>
+        <div class="span-6 reveal">
+          <div class="skill">
+            <div class="skill-top"><strong>Web</strong><span class="tag">HTML • CSS • PHP • MySQL • Angular • Spring Boot</span></div>
+            <div class="bar"><span data-level="88"></span></div>
+          </div>
+        </div>
+        <div class="span-6 reveal">
+          <div class="skill">
+            <div class="skill-top"><strong>IoT Platforms</strong><span class="tag">Arduino • ESP32 • Raspberry Pi</span></div>
+            <div class="bar"><span data-level="94"></span></div>
+          </div>
+        </div>
+        <div class="span-6 reveal">
+          <div class="skill">
+            <div class="skill-top"><strong>Tools</strong><span class="tag">MATLAB • Proteus • MikroC • Android Studio • VS • Docker • GitHub</span></div>
+            <div class="bar"><span data-level="86"></span></div>
+          </div>
+        </div>
+        <div class="span-12 reveal">
+          <div class="skill">
+            <div class="skill-top"><strong>Applications</strong><span class="tag">IoT Automation • AI Integration • Embedded Systems</span></div>
+            <div class="bar"><span data-level="90"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research">
+    <div class="container">
+      <h2 class="reveal">Research</h2>
+      <p class="lead reveal">Selected research & posters. Images open the paper visuals.</p>
+
+      <div class="grid">
+        <article class="card span-6 reveal">
+          <img src="assets/research%201%20-%20greenhouse-paper.jpg" alt="Greenhouse research poster">
+          <div class="card-body">
+            <h3 class="card-title">IoT-Based Automated Greenhouse with GSM</h3>
+            <p class="card-desc">Published at FARS 2023 (Vavuniya). Real-time sensing, GSM alerts, and control for optimized greenhouse conditions.</p>
+            <div class="card-actions">
+              <a class="link" href="assets/research%201%20-%20greenhouse-paper.jpg" target="_blank">View Poster</a>
+              <a class="link" href="#projects">Related Project</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card span-6 reveal">
+          <img src="assets/research%202%20-%20robot-paper.jpg" alt="Obstacle avoiding robot research">
+          <div class="card-body">
+            <h3 class="card-title">Obstacle Avoiding & Voice/Bluetooth Robot</h3>
+            <p class="card-desc">Arduino robot integrating voice/Bluetooth control. Focus on sensor fusion and robust motion strategy.</p>
+            <div class="card-actions">
+              <a class="link" href="assets/research%202%20-%20robot-paper.jpg" target="_blank">View Poster</a>
+              <a class="link" href="#projects">Related Project</a>
+            </div>
+          </div>
+        </article>
+
+        <div class="span-12 reveal">
+          <div class="video-wrap">
+            <video id="researchVideo" autoplay muted loop playsinline controls poster="assets/techfix.jpg">
+              <source src="assets/research.mp4" type="video/mp4"/>
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="reveal">Projects</h2>
+      <p class="lead reveal">A mix of IoT, AI/ML and full-stack builds. Each card includes a short context.</p>
+
+      <div class="grid">
+        <!-- 1 -->
+        <article class="card span-4 reveal">
+          <img src="assets/greenhouse.jpg" alt="Greenhouse Automation with GSM">
+          <div class="card-body">
+            <h3 class="card-title">Greenhouse Automation (GSM)</h3>
+            <p class="card-desc">ESP32 + sensors with GSM SMS alerts for climate control and fault notifications.</p>
+            <div class="card-actions">
+              <a class="link" href="#">GitHub</a><a class="link" href="#">Demo</a>
+            </div>
+          </div>
+        </article>
+        <!-- 2 -->
+        <article class="card span-4 reveal">
+          <img src="assets/cyberacademy.jpg" alt="CyberShield Academy Website">
+          <div class="card-body">
+            <h3 class="card-title">CyberShield Academy (Web)</h3>
+            <p class="card-desc">Full-stack PHP/MySQL site for cybersecurity learning modules and student progress.</p>
+            <div class="card-actions">
+              <a class="link" href="#">GitHub</a><a class="link" href="#">Live</a>
+            </div>
+          </div>
+        </article>
+        <!-- 3 -->
+        <article class="card span-4 reveal">
+          <img src="assets/accident.jpg" alt="Accident Alert & GPS Tracker">
+          <div class="card-body">
+            <h3 class="card-title">Accident Alert & GPS Tracker</h3>
+            <p class="card-desc">ESP32 + MPU6050 detects impact; GSM+GPS sends precise coordinates in real-time.</p>
+            <div class="card-actions">
+              <a class="link" href="#">GitHub</a><a class="link" href="#">Demo</a>
+            </div>
+          </div>
+        </article>
+        <!-- 4 -->
+        <article class="card span-4 reveal">
+          <img src="assets/baggage.jpg" alt="Simul8 Baggage Handling System">
+          <div class="card-body">
+            <h3 class="card-title">Baggage Handling (IoT + Simul8)</h3>
+            <p class="card-desc">Simulation-driven baggage tracking and throughput optimization with IoT hooks.</p>
+            <div class="card-actions">
+              <a class="link" href="#">Report</a>
+            </div>
+          </div>
+        </article>
+        <!-- 5 -->
+        <article class="card span-4 reveal">
+          <img src="assets/xgboost.jpg" alt="XGBoost Tumor Classifier">
+          <div class="card-body">
+            <h3 class="card-title">XGBoost Tumor Classifier</h3>
+            <p class="card-desc">ML model pipeline for breast tumor classification with evaluation dashboards.</p>
+            <div class="card-actions">
+              <a class="link" href="#">Code</a><a class="link" href="#">Paper</a>
+            </div>
+          </div>
+        </article>
+        <!-- 6 -->
+        <article class="card span-4 reveal">
+          <img src="assets/hardware-store.jpg" alt="Hardware Store Management">
+          <div class="card-body">
+            <h3 class="card-title">Hardware Store (Java)</h3>
+            <p class="card-desc">Inventory, billing, and vendor modules with file/DB persistence and reports.</p>
+            <div class="card-actions">
+              <a class="link" href="#">GitHub</a>
+            </div>
+          </div>
+        </article>
+        <!-- 7 -->
+        <article class="card span-4 reveal">
+          <img src="assets/techfix.jpg" alt="TechFix platform">
+          <div class="card-body">
+            <h3 class="card-title">TechFix – Repair Platform</h3>
+            <p class="card-desc">Multi-role PHP/MySQL app with bookings, order status, and admin analytics.</p>
+            <div class="card-actions">
+              <a class="link" href="#">Live</a>
+            </div>
+          </div>
+        </article>
+        <!-- 8 -->
+        <article class="card span-4 reveal">
+          <img src="assets/datacarving.jpg" alt="Data Carving Tools Comparison">
+          <div class="card-body">
+            <h3 class="card-title">Data Carving Study</h3>
+            <p class="card-desc">PhotoRec, Foremost, Scalpel comparison — recovery accuracy & speed analysis.</p>
+            <div class="card-actions">
+              <a class="link" href="#">PDF</a>
+            </div>
+          </div>
+        </article>
+        <!-- 9 -->
+        <article class="card span-4 reveal">
+          <img src="assets/disaster.jpg" alt="Emergency Disaster Communication Network">
+          <div class="card-body">
+            <h3 class="card-title">Emergency Comms Network</h3>
+            <p class="card-desc">ESP32 + LoRa/GSM + Android alerts for disaster-time connectivity & safety.</p>
+            <div class="card-actions">
+              <a class="link" href="#">GitHub</a><a class="link" href="#">Demo</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="container">
+      <h2 class="reveal">Experience</h2>
+      <div class="timeline">
+        <div class="t-item reveal">
+          <div class="t-title">SLT-Mobitel — Intern Software & Electronics Engineer</div>
+          <div class="t-meta">2022 • Colombo, Sri Lanka</div>
+          <div class="t-desc">
+            Worked across software, service assurance, and cable replacement. Managed network switches and troubleshooting for service fulfillment.
+          </div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-title">Visiting Lecturer — Dept. of Electronics & Telecommunication</div>
+          <div class="t-meta">2025 • Gampaha Technical College</div>
+          <div class="t-desc">
+            Lecturing advanced programming/electronics. Designed lab-first sessions to help students build real-world confidence.
+          </div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-title">Pantech Solutions (Online) — Intern AI Engineer</div>
+          <div class="t-meta">2023 • India (Remote)</div>
+          <div class="t-desc">
+            Developed ML/AI solutions with emphasis on BCI and data analysis. Collaborated using Python and ML frameworks.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications & Achievements -->
+  <section id="certs">
+    <div class="container">
+      <h2 class="reveal">Certifications & Achievements</h2>
+      <div class="certs">
+        <div class="list reveal">
+          <h3>Achievements</h3>
+          <ul>
+            <li><strong>Outstanding Research Poster Award</strong> — Annual Student Research Congress 2022 & 2023, Vavuniya University</li>
+            <li>Participant — <strong>Ingenuity Awards 2022 & 2023</strong>, SLASSCOM</li>
+            <li>Participant — <strong>SLEMEA Virtual Exhibition 2023</strong></li>
+            <li>Microsoft Software Provincial Competition (2010, 2012)</li>
+          </ul>
+        </div>
+        <div class="list reveal">
+          <h3>Certificates</h3>
+          <ul>
+            <li>International IT</li>
+            <li>Internship on Python</li>
+            <li>Internship on Machine Learning</li>
+            <li>Internship on Arduino</li>
+            <li>Internship on BCI</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="pill-row" style="justify-content:space-between; align-items:center">
+        <div>© <span id="year"></span> Mohammed Nasik • Built with ❤️, ESP32 vibes & clean code.</div>
+        <div class="pill-row">
+          <a class="tag" href="mailto:zamnasik@gmail.com">Email</a>
+          <a class="tag" href="#home">Back to top</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Load hero video source once DOM ready (helps with autoplay policies)
+    const hv = document.getElementById('heroVideo');
+    hv.src = 'assets/research.mp4';
+
+    // Mobile menu
+    function toggleMenu(){
+      const m = document.getElementById('menu');
+      m.classList.toggle('open');
+    }
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); observer.unobserve(e.target); }
+      })
+    }, {threshold:.16});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Animate skill bars when visible
+    const barObs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.querySelectorAll('.bar > span').forEach(span=>{
+            const lvl = span.getAttribute('data-level') || 70;
+            span.style.width = lvl + '%';
+            span.style.transition = 'width 1400ms cubic-bezier(.2,.65,.2,1)';
+          });
+          barObs.unobserve(e.target);
+        }
+      })
+    }, {threshold:.35});
+    document.querySelectorAll('#skills .skill').forEach(s=>barObs.observe(s));
+
+    // Ensure autoplay for research video when in view (mobile friendly)
+    const rv = document.getElementById('researchVideo');
+    const playIfVisible = (video)=>{
+      const rect = video.getBoundingClientRect();
+      const visible = rect.top < window.innerHeight && rect.bottom > 0;
+      if(visible) { video.play().catch(()=>{}); }
+    };
+    window.addEventListener('scroll', ()=>playIfVisible(rv), {passive:true});
+    window.addEventListener('load', ()=>{ playIfVisible(rv); playIfVisible(hv); });
+
+  </script>
+</body>
+</html>

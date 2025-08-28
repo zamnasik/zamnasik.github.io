@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Nasik Abdeen | Software Engineer & Full‑Stack Developer</title>
+  <meta name="description" content="Software Engineer & Full‑Stack Developer specializing in web apps, databases, and IoT/AI integration."/>
+
+  <!-- Fonts / Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f7fb; --fg:#0f172a; --muted:#475569; --primary:#0f2a55; --card:#ffffff; --link:#0f2a55;
+      --pill:#e7eefc; --shadow:0 10px 28px rgba(0,0,0,.1); --shadow-strong:0 18px 40px rgba(0,0,0,.18);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1220; --fg:#e5e7eb; --muted:#cbd5e1; --primary:#79b8ff; --card:#0f172a; --link:#79b8ff;
+      --pill:#0f1c38; --shadow:0 10px 28px rgba(0,0,0,.35); --shadow-strong:0 18px 40px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg)}
+    a{color:var(--link);text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:0 1rem}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.6);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
+    [data-theme="dark"] nav{background:rgba(11,18,32,.55)}
+    nav .bar{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0}
+    .nav-left a{margin-right:1rem;font-weight:600}
+    .btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem .95rem;border-radius:12px;background:var(--primary);color:#fff;font-weight:600;border:0;box-shadow:var(--shadow)}
+    .toggle{padding:.5rem .8rem;border-radius:10px;border:1px solid rgba(0,0,0,.12);background:var(--card);color:var(--fg);cursor:pointer;margin-left:.5rem}
+
+    /* HERO */
+    header.hero{
+      background:linear-gradient(135deg,#0f2a55 0%,#17408b 100%);
+      color:#fff;text-align:center;padding:4.8rem 0 4.2rem;
+      position:relative; overflow:hidden;
+    }
+    header .tagline{opacity:.95;margin:0 0 .5rem}
+    .chips{margin-top:.6rem;display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem}
+    .chip{border:1px solid rgba(255,255,255,.6);color:#fff;border-radius:999px;padding:.25rem .7rem;font-size:.85rem;background:rgba(255,255,255,.08)}
+    /* dual avatars */
+
+    .hero-avatars img{
+      position:absolute; transform:translateY(-50%); object-fit:cover;
+      /*border-radius:50%; outline:6px solid rgba(255,255,255,.96); box-shadow:var(--shadow-strong);*/
+    }
+
+    .hero-avatars .left {
+        top:59%;
+        left:3%;
+        width:260px;
+        height:300px;
+      }
+
+    .hero-avatars .right {
+        top:30%;
+        right:3%;
+        width:320px;
+        height:460px;
+      }
+
+    @media(max-width:900px){
+      .hero-avatars img{ width:120px; height:120px; }
+      .hero-avatars .left{ left:2%; } .hero-avatars .right{ right:2%; }
+    }
+    @media(max-width:640px){
+      .hero-avatars .left{ display:none; }   /* keep one on small screens */
+    }
+
+    /* LAYOUT / CARDS */
+    h2.section{color:var(--primary);margin:2rem 0 1rem}
+    section{padding:1.25rem 0}
+    .split{display:grid;grid-template-columns:1fr;gap:1rem}
+    @media(min-width:900px){.split{grid-template-columns:1.2fr .8fr}}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;transition:.25s transform,.25s box-shadow}
+    .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-strong)}
+    .cover{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#e5e7eb}
+    .pad{padding:1rem}
+    .muted{color:var(--muted)}
+    .btn-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}
+
+    /* SKILLS */
+    .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .skill-pill{display:flex;align-items:center;gap:.6rem;background:var(--pill);padding:.55rem .8rem;border-radius:999px;font-weight:600}
+
+    /* EXPERIENCE */
+    .timeline{display:grid;gap:1rem}
+    .exp{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:1rem}
+    .exp h3{margin:.2rem 0}
+    .exp .meta{color:var(--muted);font-size:.95rem;margin-bottom:.4rem}
+    .exp ul{margin:.5rem 0 0 1rem}
+    .exp ul li{margin:.25rem 0}
+
+    /* CONTACT */
+    .contact-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.8rem}
+    .contact-item{display:flex;align-items:center;gap:.7rem;background:var(--card);padding:.9rem 1rem;border-radius:12px;box-shadow:var(--shadow)}
+
+    /* FLOAT BUTTON */
+    .fab{position:fixed;right:18px;bottom:18px;z-index:120;border:none;border-radius:999px;box-shadow:var(--shadow-strong);
+      background:var(--primary);color:#fff;padding:.9rem 1.05rem;display:flex;align-items:center;gap:.5rem;font-weight:700}
+
+    footer{padding:2.2rem 0;text-align:center;color:var(--muted)}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(10px);transition:all .5s}
+    .reveal.on{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="container bar">
+      <div class="nav-left">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#research">Research</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-right">
+        <a class="btn" href="Nasik_Portfolio_CV.pdf" download><i class="fa-solid fa-download"></i> Download CV</a>
+        <button class="toggle" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero">
+    <div class="container">
+      <h1>Nasik Abdeen</h1>
+      <p class="tagline">Software Engineer & Full‑Stack Developer — IoT & AI Enthusiast</p>
+      <div class="chips">
+        <span class="chip">PHP / MySQL</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">ESP32 / Arduino</span>
+        <span class="chip">Python / ML</span>
+      </div>
+    </div>
+    <div class="hero-avatars">
+      <img class="left"  src="assets/profile-left.jpg"  alt="Profile Left">
+      <img class="right" src="assets/profile-right.jpg" alt="Profile Right">
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ABOUT -->
+    <section id="about" class="split reveal">
+      <div>
+        <h2 class="section">About</h2>
+        <p class="muted">
+          Innovative Software Engineer with hands‑on experience in full‑stack development, database management,
+          and IoT systems. Skilled in building scalable applications, optimizing performance, and integrating modern frameworks.
+          Strong problem‑solver with experience in real‑time systems, automation, and data‑driven solutions.
+        </p>
+      </div>
+      <!-- Awards card -->
+      <div class="card">
+        <img class="cover" src="assets/award.jpg" alt="Awards">
+        <div class="pad">
+          <strong>Outstanding Poster Awards & Ingenuity 2023</strong>
+          <p class="muted">
+            • Poster Award – <em>Obstacle Avoiding, Voice & Bluetooth Control Robot</em> (FARS, Vavuniya).<br>
+            • <em>IoT‑Based Automated Greenhouse with GSM</em> – selected for SLASSCOM Ingenuity Awards 2023.
+          </p>
+          <div class="btn-row">
+            <a class="btn" target="_blank" href="http://drr.vau.ac.lk/handle/123456789/1026"><i class="fa-solid fa-file-lines"></i> Paper</a>
+            <a class="btn" style="background:#2563eb" target="_blank" href="https://fas.vau.ac.lk/fars2022/?page_id=4153"><i class="fa-solid fa-award"></i> Awards Page</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="reveal">
+      <h2 class="section">Skills</h2>
+      <div class="skills">
+        <div class="skill-pill"><i class="fa-brands fa-python"></i> Python</div>
+        <div class="skill-pill"><i class="fa-brands fa-java"></i> Java</div>
+        <div class="skill-pill"><i class="fa-solid fa-code"></i> C / C++</div>
+        <div class="skill-pill"><i class="fa-brands fa-php"></i> PHP</div>
+        <div class="skill-pill"><i class="fa-brands fa-js"></i> JavaScript</div>
+        <div class="skill-pill"><i class="fa-solid fa-database"></i> SQL / MySQL</div>
+        <div class="skill-pill"><i class="fa-solid fa-microchip"></i> ESP32 / Arduino</div>
+        <div class="skill-pill"><i class="fa-solid fa-tower-broadcast"></i> GSM / LoRa</div>
+        <div class="skill-pill"><i class="fa-brands fa-android"></i> Android (Java)</div>
+        <div class="skill-pill"><i class="fa-solid fa-diagram-project"></i> Spring Boot / Angular</div>
+        <div class="skill-pill"><i class="fa-brands fa-docker"></i> Docker</div>
+        <div class="skill-pill"><i class="fa-brands fa-github"></i> GitHub</div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="reveal">
+      <h2 class="section">Work Experience</h2>
+      <div class="timeline">
+        <div class="exp">
+          <h3>Visiting Lecturer – Gampaha Technical College</h3>
+          <div class="meta"><i class="fa-regular fa-calendar"></i> 2025 – Present · Department of Electronics</div>
+          <ul>
+            <li>Teach <strong>Advanced Programming for Industrial Electronics</strong> with practical labs.</li>
+            <li>Guide student projects on <strong>ESP32/Arduino</strong>, sensors, GSM/LoRa and data logging.</li>
+            <li>Developed sample modules & assignments using <strong>Java, Python</strong> and <strong>embedded C</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="exp">
+          <h3>Freelance Software Engineer</h3>
+          <div class="meta"><i class="fa-regular fa-calendar"></i> 2019 – Present</div>
+          <ul>
+            <li>Built production websites & dashboards using <strong>PHP, MySQL, JavaScript</strong>.</li>
+            <li>Designed and deployed an <strong>IoT Greenhouse Automation</strong> with GSM alerts.</li>
+            <li>Developed <strong>Accident Alert & GPS Tracker</strong> (ESP32, MPU6050, NEO‑6M, SIM800L).</li>
+            <li>Created <strong>XGBoost‑based tumor classifier</strong> for medical datasets (Python).</li>
+          </ul>
+        </div>
+
+        <div class="exp">
+          <h3>Software Engineer – Pantech Solutions (Online)</h3>
+          <div class="meta"><i class="fa-regular fa-calendar"></i> Internship · AI/ML & IoT Prototyping</div>
+          <ul>
+            <li>Trained ML models and built <strong>AI‑driven applications</strong> with Python.</li>
+            <li>Created working <strong>IoT prototypes</strong> integrated with AI algorithms.</li>
+          </ul>
+        </div>
+
+        <div class="exp">
+          <h3>Software & Electronics Engineer – SLT‑Mobitel</h3>
+          <div class="meta"><i class="fa-regular fa-calendar"></i> 2022 · Internship, Colombo</div>
+          <ul>
+            <li>Supported software tools for <strong>service assurance</strong> & device monitoring.</li>
+            <li>Worked with network teams on <strong>switch configuration & troubleshooting</strong>.</li>
+            <li>Contributed to <strong>cable‑replacement automation</strong> improvements.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="reveal">
+      <h2 class="section">Projects</h2>
+      <div class="grid">
+        <div class="card"><img class="cover" src="assets/cyberacademy.jpg" alt="">
+          <div class="pad">
+            <strong>TechFix / CyberShield Academy</strong>
+            <p class="muted">Service platform with multi‑role dashboards & secure auth.</p>
+            <div class="btn-row">
+              <a class="btn" target="_blank" href="https://github.com/zamnasik/techfix-soc"><i class="fa-brands fa-github"></i> GitHub</a>
+              <a class="btn" target="_blank" href="#"><i class="fa-solid fa-play"></i> Video</a>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <div class="card"><img class="cover" src="assets/accident.jpg" alt="">
+          <div class="pad">
+            <strong>Accident Alert & GPS Tracker</strong>
+            <p class="muted">Crash detection with MPU6050 + GSM SOS + GPS.</p>
+            <div class="btn-row">
+              <a class="btn" target="_blank" href="https://github.com/zamnasik/Accident-Alert--GPS-Tracker"><i class="fa-brands fa-github"></i> GitHub</a>
+              <a class="btn" target="_blank" href="#"><i class="fa-solid fa-play"></i> Video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card"><img class="cover" src="assets/baggage.jpg" alt="">
+          <div class="pad">
+            <strong>Baggage Handling Optimization</strong>
+            <p class="muted">IoT‑assisted Simul8 model to improve airport flow.</p>
+            <div class="btn-row">
+              <a class="btn" target="_blank" href="https://github.com/zamnasik/Baggage-Handling-System-"><i class="fa-brands fa-github"></i> GitHub</a>
+              <a class="btn" target="_blank" href="https://youtu.be/rQdhubBgmEQ"><i class="fa-solid fa-play"></i> Video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card"><img class="cover" src="assets/xgboost.jpg" alt="">
+          <div class="pad">
+            <strong>XGBoost Tumor Classifier</strong>
+            <p class="muted">ML model for early breast cancer detection.</p>
+            <div class="btn-row">
+              <a class="btn" target="_blank" href="#"><i class="fa-brands fa-github"></i> GitHub</a>
+              <a class="btn" target="_blank" href="#"><i class="fa-solid fa-play"></i> Video</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research" class="reveal">
+      <h2 class="section">Research</h2>
+      <div class="grid">
+        <div class="card"><img class="cover" src="assets/greenhouse-paper.jpg" alt="">
+          <div class="pad">
+            <strong>IoT‑Based Automated Greenhouse (GSM)</strong>
+            <p class="muted">FARS (Univ. of Vavuniya). Selected for SLASSCOM Ingenuity 2023.</p>
+            <div class="btn-row"><a class="btn" target="_blank" href="http://drr.vau.ac.lk/handle/123456789/1026"><i class="fa-solid fa-file-lines"></i> Read</a></div>
+          </div>
+        </div>
+        <div class="card"><img class="cover" src="assets/robot-paper.jpg" alt="">
+          <div class="pad">
+            <strong>Obstacle Avoiding, Voice & Bluetooth Robot</strong>
+            <p class="muted">FARS Poster Award. Indexed on Google Scholar.</p>
+            <div class="btn-row"><a class="btn" target="_blank" href="http://192.248.57.140/handle/123456789/557"><i class="fa-solid fa-graduation-cap"></i> Scholar</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1rem;">
+        <video class="cover" src="assets/research.mp4" controls></video>
+        <div class="pad"><strong>Research Highlights</strong><p class="muted">Demo reel of prototypes & outcomes.</p></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="reveal">
+      <h2 class="section">Contact</h2>
+      <div class="contact-list">
+        <a class="contact-item" href="mailto:zamnasik@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i> zamnasik@gmail.com</a>
+        <a class="contact-item" href="tel:+94772452237" target="_blank"><i class="fa-solid fa-phone"></i> +94 77 245 2237</a>
+        <a class="contact-item" href="https://www.linkedin.com/in/zamnasik/" target="_blank"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/zamnasik</a>
+        <a class="contact-item" href="https://github.com/zamnasik" target="_blank"><i class="fa-brands fa-github"></i> github.com/zamnasik</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 Nasik Abdeen — Built with ♥</footer>
+
+  <!-- Floating contact -->
+  <a class="fab" href="#contact" title="Contact"><i class="fa-solid fa-message"></i> Contact</a>
+
+  <!-- JS -->
+  <script>
+    function toggleTheme(){
+      const h=document.documentElement;
+      const next=h.getAttribute('data-theme')==='dark'?'light':'dark';
+      h.setAttribute('data-theme',next);localStorage.setItem('theme',next);
+    }
+    window.addEventListener('DOMContentLoaded', function(){
+      try{
+        const io=new IntersectionObserver(entries=>{
+          entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+        },{threshold:.12});
+        document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+      }catch(err){
+        document.querySelectorAll('.reveal').forEach(el=>el.classList.add('on'));
+      }
+    });
+  </script>
+</body>
+</html>
